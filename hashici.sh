@@ -20,7 +20,7 @@ handle_input() {
 }
 
 pipeline() {
-    wait_for_vcs_notification
+    listen_to_vcs
 
     build
 
@@ -31,7 +31,7 @@ pipeline() {
     upload
 }
 
-wait_for_vcs_notification() {
+listen_to_vcs() {
     spin 3
     padding
 }
