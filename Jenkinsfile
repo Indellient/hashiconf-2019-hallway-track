@@ -22,5 +22,10 @@ pipeline {
                 echo 'Building Package..'
             }
         }
+        stage('Upload') {
+            steps {
+                echo 'Uploading Package..'
+            }
+        }
     }
 }
