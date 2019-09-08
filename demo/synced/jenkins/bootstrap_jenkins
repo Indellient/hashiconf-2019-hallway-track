@@ -1,0 +1,3 @@
+#!/bin/bash
+
+JENKINS_HOME=/tmp/jenkins_home java -jar /tmp/jenkins.war

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/srv/target/appassembler/bin/jenkinsfile-runner -w /tmp/jenkins -p /tmp/jenkins_home/plugins -f /srv/Jenkinsfile
