@@ -2,21 +2,32 @@ pipeline {
     agent any
     environment {
         HAB_LICENSE="accept"
+        DO_CHECK="true"
+        HAB_ORIGIN_KEY="yonkornilov"
     }
     stages {
         stage('checkout') {
-            checkout([
-                $class: 'GitSCM',
-                branches: [[name: 'refs/heads/master']],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'CalibrationResults']],
-                submoduleCfg: [],
-                userRemoteConfigs: [[url: 'https://github.com/yonkornilov/golang-habitat-hello-world']]
-            ])
-        }
-        stage('build') {
             steps {
-                sh "Hello world"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: 'refs/heads/master']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '.']],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[url: 'https://github.com/yonkornilov/golang-habitat-hello-world']]
+                ])
+            }
+        }
+        stage('build-and-test') {
+            steps {
+                sh "hab origin key generate $HAB_ORIGIN_KEY"
+                sh "hab pkg build . --keys $HAB_ORIGIN_KEY"
+            }
+        }
+        stage('export') {
+            steps {
+                sh "hab pkg export docker results/\$(cat results/last_build.env | grep pkg_artifact | cut -d '=' -f2)"
+                sh "docker push yonkornilov/golang-habitat-hello-world:latest"
             }
         }
     }
