@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Add Docker repository
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
@@ -11,9 +12,6 @@ apt-get update
 apt-get install unzip default-jre docker-ce -y
 wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war -O /tmp/jenkins.war
 unzip /tmp/jenkins.war -d /tmp/jenkins
-
-# Install Docker
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 # Configure groups
 sudo usermod -aG docker vagrant
