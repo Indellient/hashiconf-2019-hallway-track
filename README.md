@@ -20,7 +20,8 @@ From the `demo` directory,
 4. Go to localhost:80 on the host machine, go through the steps to unlock jenkins (see output of previous script), install the recommended plugins and continue as admin
 5. Exit out of the script in step 3
 6. `docker login`
-7. /srv/run_jenkinsfile
-8. Go to localhost:8080 (Nomad UI) and add the job defined in `nomad-jobs/golang-hello-world.nomad`.
+7. Copy `target` from build of https://github.com/jenkinsci/jenkinsfile-runner to `synced/jenkins`
+8. /srv/run_jenkinsfile
+9. Go to localhost:8080 (Nomad UI) and add the job defined in `nomad-jobs/golang-hello-world.nomad`.
 
 Adjust the Docker organization uploaded to as necessary.
